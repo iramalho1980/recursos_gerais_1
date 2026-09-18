@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TrHUB | Recursos Gerais</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap');
+  :root{--neon:#efff3d;--neon2:#dfff00;--ink:#102c3e;--glass:rgba(255,255,255,.15);--line:rgba(255,255,255,.28);--white:#fff;}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:"Cascadia Code","Cascadia Mono","Ubuntu Mono",monospace;color:var(--white)}
+  body{background:#ffd89b;background:-webkit-linear-gradient(to right,#19547b,#ffd89b);background:linear-gradient(to right,#19547b,#ffd89b);padding:28px 18px 42px;overflow-x:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 10% 10%,rgba(255,255,255,.22),transparent 26%),radial-gradient(circle at 90% 85%,rgba(239,255,61,.18),transparent 25%)}
+  h1,h2,h3,.brand,.section-title{font-family:"Ubuntu",sans-serif;font-weight:300;letter-spacing:.04em}
+  .app{width:min(1020px,100%);margin:auto;position:relative;z-index:1}
+  .top-card,.form-card,.tools-card{border:1px solid var(--line);background:var(--glass);box-shadow:0 18px 55px rgba(6,29,45,.28),inset 0 1px rgba(255,255,255,.2);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:24px}
+  .top-card{padding:24px 30px;margin-bottom:18px;text-align:center}
+  .brand{font-size:clamp(1.8rem,4vw,3rem);margin:0;color:#fff;text-shadow:0 0 16px rgba(239,255,61,.38)}
+  .brand span,.neon{color:var(--neon);text-shadow:0 0 12px rgba(239,255,61,.55)}
+  .subtitle{margin:8px 0 0;font-size:.78rem;opacity:.85;letter-spacing:.18em;text-transform:uppercase}
+  .form-card{padding:22px}
+  .scroll-window{height:560px;overflow-y:auto;padding:4px 10px 18px 4px;scroll-behavior:smooth}
+  .scroll-window::-webkit-scrollbar{width:9px}.scroll-window::-webkit-scrollbar-track{background:rgba(0,0,0,.15);border-radius:9px}.scroll-window::-webkit-scrollbar-thumb{background:var(--neon);border-radius:9px;box-shadow:0 0 10px rgba(239,255,61,.5)}
+  .section{padding:20px 18px;margin-bottom:16px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(4,35,52,.15)}
+  .section-title{font-size:1.18rem;margin:0 0 17px;color:var(--neon);display:flex;align-items:center;gap:10px}
+  .section-title:before{content:"";width:8px;height:8px;background:var(--neon);box-shadow:0 0 14px var(--neon);border-radius:50%;display:inline-block}
+  .sub-title{font-family:Ubuntu,sans-serif;font-weight:500;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;margin:22px 0 11px;color:#fff}
+  .responsibles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+  .person{padding:14px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+  .person h3{margin:0 0 11px;font-size:.95rem;color:var(--neon)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  label{display:flex;flex-direction:column;gap:6px;font-size:.7rem;letter-spacing:.04em;color:rgba(255,255,255,.84)}
+  input,textarea,select{width:100%;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:11px 12px;background:rgba(3,29,44,.35);color:#fff;outline:none;font:inherit;font-size:.78rem;transition:.2s}
+  input::placeholder,textarea::placeholder{color:rgba(255,255,255,.48)}
+  input:focus,textarea:focus,select:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(239,255,61,.12),0 0 17px rgba(239,255,61,.15)}
+  textarea{min-height:72px;resize:vertical}select option{color:#102c3e}
+  .radio-row{display:flex;gap:10px;flex-wrap:wrap}
+  .radio{display:inline-flex;flex-direction:row;align-items:center;gap:7px;padding:10px 12px;border:1px solid rgba(255,255,255,.22);border-radius:10px;background:rgba(255,255,255,.07);cursor:pointer;font-size:.75rem}
+  .radio input{width:auto;accent-color:var(--neon)}
+  .tools-card{margin-top:18px;padding:18px;display:flex;justify-content:center;gap:11px;flex-wrap:wrap}
+  .tool{border:1px solid rgba(239,255,61,.45);background:rgba(7,38,51,.3);color:#fff;border-radius:14px;width:64px;height:57px;display:grid;place-items:center;cursor:pointer;transition:.2s;position:relative}
+  .tool:hover{transform:translateY(-3px);background:rgba(239,255,61,.18);box-shadow:0 0 20px rgba(239,255,61,.28);color:var(--neon)}
+  .tool svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.tool.send{width:76px}
+  .hint{text-align:center;font-size:.68rem;opacity:.7;margin:10px 0 0}
+  #loader{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#092c45,#19547b 52%,#ffd89b);transition:opacity .6s,visibility .6s}
+  #loader.done{opacity:0;visibility:hidden}.loader-box{text-align:center;width:min(370px,80vw)}.loader-title{font:300 2rem Ubuntu,sans-serif;margin:0 0 25px}.loader-title b{color:var(--neon);font-weight:300}.progress{height:9px;background:rgba(255,255,255,.22);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.3)}.bar{height:100%;width:0;background:var(--neon);box-shadow:0 0 18px var(--neon);transition:width .12s}.load-text{font-size:.7rem;margin-top:11px;opacity:.8}
+  .toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#102c3e;color:#fff;padding:12px 17px;border-radius:12px;border:1px solid var(--neon);box-shadow:0 0 20px rgba(239,255,61,.25);opacity:0;pointer-events:none;transition:.3s;z-index:30;font-size:.75rem}.toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:720px){body{padding:14px 10px 30px}.top-card{padding:20px 14px}.form-card{padding:12px}.scroll-window{height:550px}.responsibles,.grid,.grid.three{grid-template-columns:1fr}.section{padding:15px 12px}.tool{width:58px}}
+  @media print{body{background:#fff;color:#111;padding:0}.top-card,.form-card{box-shadow:none;border:1px solid #bbb;background:#fff}.tools-card,#loader,.hint{display:none}.scroll-window{height:auto;overflow:visible}.section{break-inside:avoid;border:1px solid #ccc;background:#fff}.section-title,.brand span{color:#19547b;text-shadow:none}input,textarea,select{color:#111;background:#fff;border:1px solid #aaa}.person{background:#fafafa;border:1px solid #ddd}label{color:#333}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><h1 class="loader-title">Tr<span>HUB</span></h1><div class="progress"><div class="bar" id="bar"></div></div><div class="load-text" id="loadText">Inicializando recursos gerais... 0%</div></div></div>
+<main class="app">
+  <header class="top-card"><h1 class="brand">Tr<span>HUB</span> | Recursos Gerais</h1><p class="subtitle">Implantação • Dados importantes</p></header>
+  <section class="form-card">
+    <div class="scroll-window" id="formArea">
+      <section class="section"><h2 class="section-title">Responsáveis</h2><div class="responsibles" id="responsibles"></div></section>
+      <section class="section"><h2 class="section-title">Dados da empresa</h2>
+        <div class="grid three">
+          <label>Total de empresas a serem cadastradas<input name="total_empresas" type="number" min="0" placeholder="0"></label>
+          <label>Total com escrita fiscal<input name="empresas_fiscal" type="number" min="0" placeholder="0"></label>
+          <label>Total com folha de pagamentos<input name="empresas_folha" type="number" min="0" placeholder="0"></label>
+          <label>Total com contabilidade<input name="empresas_contabilidade" type="number" min="0" placeholder="0"></label>
+          <label>Total de vidas na folha<input name="vidas_folha" type="number" min="0" placeholder="Empregados + pró-labore"></label>
+          <label>Expectativa de uso total do sistema<input name="expectativa_uso" type="date"></label>
+        </div>
+        <h3 class="sub-title">Particularidades</h3><div class="grid"><label>Folha<textarea name="particularidades_folha" placeholder="Descreva particularidades da folha..."></textarea></label><label>Escrita fiscal<textarea name="particularidades_fiscal" placeholder="Descreva particularidades da escrita fiscal..."></textarea></label><label>Contabilidade<textarea name="particularidades_contabilidade" placeholder="Descreva particularidades da contabilidade..."></textarea></label></div>
+        <h3 class="sub-title">Regime das empresas <span class="neon">(selecione um ou mais)</span></h3><div class="radio-row"><label class="radio"><input type="checkbox" name="regime" value="SIMPLES"> SIMPLES</label><label class="radio"><input type="checkbox" name="regime" value="PRESUMIDO"> PRESUMIDO</label><label class="radio"><input type="checkbox" name="regime" value="REAL"> REAL</label><label class="radio"><input type="checkbox" name="regime" value="OUTROS"> OUTROS</label></div>
+        <h3 class="sub-title">Contabilização de clientes e fornecedores <span class="neon">(selecione uma ou mais)</span></h3><div class="radio-row"><label class="radio"><input type="checkbox" name="contabilizacao" value="ANALÍTICA"> ANALÍTICA</label><label class="radio"><input type="checkbox" name="contabilizacao" value="SINTÉTICA"> SINTÉTICA</label><label class="radio"><input type="checkbox" name="contabilizacao" value="MISTA"> MISTA</label></div>
+        <h3 class="sub-title">Possui empresas com filiais?</h3><div class="radio-row"><label class="radio"><input type="radio" name="filiais" value="SIM"> SIM</label><label class="radio"><input type="radio" name="filiais" value="NÃO"> NÃO</label></div>
+      </section>
+    </div>
+  </section>
+  <section class="tools-card" aria-label="Ações do formulário">
+    <button class="tool" id="saveXml" title="Salvar para XML" aria-label="Salvar para XML"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 15h8M8 18h6"/></svg></button>
+    <button class="tool" id="importXml" title="Importar XML" aria-label="Importar XML"><svg viewBox="0 0 24 24"><path d="M4 4h7l2 3h7v13H4z"/><path d="M12 10v7m-3-3 3 3 3-3"/></svg></button>
+    <button class="tool" id="saveLocal" title="Salvar no localStorage" aria-label="Salvar no localStorage"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 4v6h8V4M8 16h8"/></svg></button>
+    <button class="tool" id="printPdf" title="Imprimir / PDF" aria-label="Imprimir PDF"><svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v6H7z"/></svg></button>
+    <button class="tool send" id="sendMail" title="Enviar por Outlook" aria-label="Enviar por Outlook"><svg viewBox="0 0 24 24"><path d="m3 11 18-8-5 18-5-7-8-3z"/><path d="m11 14 10-11"/></svg></button>
+    <input id="xmlInput" type="file" accept=".xml,text/xml" hidden>
+  </section><p class="hint">Preencha os dados e utilize os ícones para salvar, importar, imprimir ou enviar o relatório.</p>
+</main><div class="toast" id="toast"></div>
+<script>
+const responsibles=[['fiscal','Fiscal'],['contabilidade','Contabilidade'],['folha','Folha'],['geral','Geral']];
+const respBox=document.getElementById('responsibles');
+respBox.innerHTML=responsibles.map(([key,title])=>`<div class="person"><h3>${title}</h3><div class="grid"><label>Nome<input name="${key}_nome" placeholder="Nome completo"></label><label>E-mail<input name="${key}_email" type="email" placeholder="nome@empresa.com"></label><label>Cel/Whatsapp<input name="${key}_celular" type="tel" placeholder="(00) 00000-0000"></label></div></div>`).join('');
+const toast=(msg)=>{const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800)};
+const fields=()=>[...document.querySelectorAll('input[name],textarea[name],select[name]')];
+  function collect(){const data={_meta:{titulo:'TrHUB | Recursos Gerais',geradoEm:new Date().toISOString()}};fields().forEach(el=>{if(el.type==='radio'||el.type==='checkbox'){if(el.checked){if(!Array.isArray(data[el.name]))data[el.name]=[];data[el.name].push(el.value)}}else if(el.multiple){data[el.name]=[...el.selectedOptions].map(o=>o.value)}else data[el.name]=el.value});Object.keys(data).forEach(k=>{if(Array.isArray(data[k]))data[k]=data[k].join('\n')});return data}
+  function apply(data){fields().forEach(el=>{if(data[el.name]===undefined)return;const values=Array.isArray(data[el.name])?data[el.name]:String(data[el.name]).split('\n');if(el.type==='radio'||el.type==='checkbox')el.checked=values.includes(el.value);else if(el.multiple)[...el.options].forEach(o=>o.selected=values.includes(o.value));else el.value=data[el.name]});}
+function xmlEscape(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function toXml(data){return '<?xml version="1.0" encoding="UTF-8"?>\n<trhub_recursos_gerais>\n'+Object.entries(data).filter(([k])=>k!=='_meta').map(([k,v])=>`  <${k}>${xmlEscape(v)}</${k}>`).join('\n')+'\n</trhub_recursos_gerais>'}
+function download(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+document.getElementById('saveXml').onclick=()=>{download('TrHUB_Recursos_Gerais.xml',toXml(collect()),'application/xml');toast('Arquivo XML salvo com sucesso.')};
+document.getElementById('importXml').onclick=()=>document.getElementById('xmlInput').click();
+document.getElementById('xmlInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;const text=await f.text(),doc=new DOMParser().parseFromString(text,'application/xml');const data={};[...doc.documentElement.children].forEach(n=>data[n.tagName]=n.textContent);apply(data);toast('XML importado com sucesso.');e.target.value=''};
+document.getElementById('saveLocal').onclick=()=>{localStorage.setItem('trhub_recursos_gerais',JSON.stringify(collect()));toast('Dados salvos neste navegador.')};
+window.addEventListener('DOMContentLoaded',()=>{const saved=localStorage.getItem('trhub_recursos_gerais');if(saved)try{apply(JSON.parse(saved));toast('Dados locais restaurados automaticamente.')}catch(e){}});
+document.getElementById('printPdf').onclick=()=>window.print();
+  function emailSection(title, entries){const rows=[`==================== ${title.toUpperCase()} ====================`];entries.forEach(([label,value])=>{if(vTruthy(value))rows.push(`${label}:\n${String(value)}`)});return rows.join('\n')}
+  function htmlEscape(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>')}
+  function mailRows(entries){return entries.filter(([,v])=>vTruthy(v)).map(([label,value])=>`<tr><td width="43%" style="border:1px solid #222;padding:4px 6px;text-align:left;background:#fff;font-family:Arial,sans-serif;font-size:11px;line-height:1.15;vertical-align:top;">${htmlEscape(label)}</td><td width="57%" style="border:1px solid #222;padding:4px 6px;text-align:left;background:#fff;font-family:Arial,sans-serif;font-size:11px;line-height:1.15;vertical-align:top;">${htmlEscape(value)}</td></tr>`).join('')}
+  function mailSection(title,entries){return `<table cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 0 10px;border:1.5px solid #222;"><tr><th colspan="2" style="background:#f7941d;color:#fff;border:1px solid #222;padding:5px 7px;text-align:left;font-family:Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.1;">${htmlEscape(title)}</th></tr>${mailRows(entries)}</table>`}
+  function makeMailHtml(d){const responsaveis=mailSection('RESPONSÁVEIS',[['Fiscal — Nome',d.fiscal_nome],['Fiscal — E-mail',d.fiscal_email],['Fiscal — Cel/Whatsapp',d.fiscal_celular],['Contabilidade — Nome',d.contabilidade_nome],['Contabilidade — E-mail',d.contabilidade_email],['Contabilidade — Cel/Whatsapp',d.contabilidade_celular],['Folha — Nome',d.folha_nome],['Folha — E-mail',d.folha_email],['Folha — Cel/Whatsapp',d.folha_celular],['Geral — Nome',d.geral_nome],['Geral — E-mail',d.geral_email],['Geral — Cel/Whatsapp',d.geral_celular]]);const empresa=mailSection('DADOS DA EMPRESA',[['Total de empresas cadastradas',d.total_empresas],['Empresas com escrita fiscal',d.empresas_fiscal],['Empresas com folha de pagamentos',d.empresas_folha],['Empresas com contabilidade',d.empresas_contabilidade],['Total de vidas na folha',d.vidas_folha],['Expectativa de uso do sistema',d.expectativa_uso],['Regime das empresas',d.regime]]);const particularidades=mailSection('PARTICULARIDADES',[['Folha',d.particularidades_folha],['Escrita fiscal',d.particularidades_fiscal],['Contabilidade',d.particularidades_contabilidade]]);const configuracoes=mailSection('CONFIGURAÇÕES',[['Contabilização de clientes e fornecedores',d.contabilizacao],['Possui empresas com filiais',d.filiais]]);return `<!doctype html><html><body style="margin:0;background:#fff;color:#222;"><div style="width:760px;max-width:100%;margin:0 auto;padding:12px;font-family:Arial,sans-serif;"><h1 style="margin:0 0 4px;color:#19547b;font-size:20px;font-weight:400;">TrHUB | Recursos Gerais</h1><p style="margin:0 0 10px;color:#555;font-size:11px;">Segue relatório de Recursos Gerais com os dados no corpo do email de forma formatada e oficial.</p><table cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;table-layout:fixed;"><tr><td width="49%" valign="top" style="padding:0 5px 0 0;">${responsaveis}${particularidades}</td><td width="49%" valign="top" style="padding:0 0 0 5px;">${empresa}${configuracoes}</td></tr></table></div></body></html>`}
+  document.getElementById('sendMail').onclick=()=>{const d=collect();const html=makeMailHtml(d);const subject='Relatório de Recursos Gerais | TrHUB';const eml=['To: ivan.ramalho@thomsonreuters.com','Subject: '+subject,'MIME-Version: 1.0','Content-Type: text/html; charset=UTF-8','Content-Transfer-Encoding: 8bit','',''+html].join('\r\n');download('Relatorio_TrHUB_Recursos_Gerais.eml',eml,'message/rfc822');toast('E-mail HTML criado. Abra o arquivo .eml no Outlook para manter cores, tabelas e bordas.');};
+function vTruthy(v){return v!==''&&v!==null&&v!==undefined}function pretty(k){return k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase())}
+let p=0;const bar=document.getElementById('bar'),loadText=document.getElementById('loadText');const timer=setInterval(()=>{p+=Math.floor(Math.random()*13)+7;if(p>=100){p=100;clearInterval(timer);setTimeout(()=>document.getElementById('loader').classList.add('done'),280)}bar.style.width=p+'%';loadText.textContent=`Inicializando recursos gerais... ${p}%`},90);
+</script>
+</body>
+</html>
